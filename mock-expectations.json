@@ -1,0 +1,26 @@
+[
+  {
+    "httpRequest": {"method": "GET", "path": "/customers/57a98d98e4b00679b4a830af"},
+    "httpResponse": {"statusCode": 200, "body": "{\"id\":\"57a98d98e4b00679b4a830af\",\"firstName\":\"Hakim\",\"lastName\":\"Salah\",\"email\":\"hakim@example.com\",\"addresses\":[{\"id\":\"57a98d98e4b00679b4a830ad\"}],\"cards\":[{\"id\":\"57a98d98e4b00679b4a830ae\"}]}", "headers": {"Content-Type": "application/json"}}
+  },
+  {
+    "httpRequest": {"method": "GET", "path": "/addresses/57a98d98e4b00679b4a830ad"},
+    "httpResponse": {"statusCode": 200, "body": "{\"id\":\"57a98d98e4b00679b4a830ad\",\"number\":\"123\",\"street\":\"Mock Street\",\"city\":\"Mockville\",\"postcode\":\"12345\",\"country\":\"Mockland\"}", "headers": {"Content-Type": "application/json"}}
+  },
+  {
+    "httpRequest": {"method": "GET", "path": "/cards/57a98d98e4b00679b4a830ae"},
+    "httpResponse": {"statusCode": 200, "body": "{\"id\":\"57a98d98e4b00679b4a830ae\",\"longNum\":\"1234567812345678\",\"expires\":\"12/30\",\"ccv\":\"123\"}", "headers": {"Content-Type": "application/json"}}
+  },
+  {
+    "httpRequest": {"method": "GET", "path": "/carts/579f21ae98684924944651bf/items"},
+    "httpResponse": {"statusCode": 200, "body": "[{\"itemId\":\"1\",\"name\":\"Product A\",\"quantity\":2,\"unitPrice\":10.0},{\"itemId\":\"2\",\"name\":\"Product B\",\"quantity\":1,\"unitPrice\":20.0}]", "headers": {"Content-Type": "application/json"}}
+  },
+  {
+    "httpRequest": {"method": "POST", "path": "/payment"},
+    "httpResponse": {"statusCode": 200, "body": "{\"authorised\": true, \"message\": \"Payment successful\"}", "headers": {"Content-Type": "application/json"}}
+  },
+  {
+    "httpRequest": {"method": "POST", "path": "/shipping"},
+    "httpResponse": {"statusCode": 200, "body": "{\"id\": \"shipment123\", \"customerId\": \"57a98d98e4b00679b4a830af\", \"status\": \"created\"}", "headers": {"Content-Type": "application/json"}}
+  }
+]

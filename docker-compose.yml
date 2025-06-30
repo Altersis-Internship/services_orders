@@ -8,13 +8,29 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8082:8082"
+      - "8080:8080"
     environment:
-      - spring_profiles_active=dev
-    depends_on:
-      - mongodb
+      - SPRING_PROFILES_ACTIVE=dev
+      - MONGO_URL=mongodb://orders-db:27017/data
+      - orders.payment-uri=http://users-orders-mock:1080/payment
+      - orders.shipping-uri=http://users-orders-mock:1080/shipping
     networks:
       - monitoring-net
+    depends_on:
+      - users-orders-mock
+      - mongodb
+
+  users-orders-mock:
+    image: mockserver/mockserver
+    container_name: users-orders-mock
+    ports:
+      - "1080:1080"
+    networks:
+      - monitoring-net
+    environment:
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/mock-expectations.json
+    volumes:
+      - ./mock-expectations.json:/config/mock-expectations.json
 
   mongodb:
     image: mongo:6
@@ -25,20 +41,6 @@ services:
       - monitoring-net
     volumes:
       - mongo-data:/data/db
-
-  dredd:
-    image: node:20
-    depends_on:
-      - orders-service
-    working_dir: /app
-    volumes:
-      - .:/app
-    command: >
-      sh -c "
-        npm install -g dredd &&
-        curl http://orders-service:8080/v3/api-docs -o swagger.json &&
-        dredd swagger.json http://orders-service:8080 --hookfiles=hooks.js
-      "
 
   prometheus:
     image: prom/prometheus:latest
@@ -68,4 +70,3 @@ networks:
 
 volumes:
   mongo-data:
-

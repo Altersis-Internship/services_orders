@@ -1,9 +1,0 @@
-dry-run: null
-language: nodejs
-require: ./hooks.js
-server: http://localhost:8080
-options:
-  hookfiles: ./tests_API/hooks.js
-  path: ./tests_API/swagger.json
-  reporter: cli
-  output: dredd-report.txt

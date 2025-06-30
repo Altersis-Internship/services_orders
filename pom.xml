@@ -51,13 +51,6 @@
             <artifactId>spring-boot-starter-web-services</artifactId>
         </dependency>
 
-        <!-- MongoDB driver -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-            <version>3.12.14</version>
-        </dependency>
-
         <!-- Prometheus monitoring -->
         <dependency>
             <groupId>io.micrometer</groupId>

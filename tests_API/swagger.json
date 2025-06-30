@@ -25,22 +25,36 @@
     ],
     "paths": {
         "/orders": {
-            "post": {
-                "description": "Create an order",
-                "operationId": "/orders POST",
-                "produces": [
+                "post": {
+                    "description": "Create an order",
+                    "operationId": "/orders POST",
+                    "produces": [
                     "application/hal+json;charset=UTF-8"
-                ],
-                "parameters": [],
-                "responses": {
+                    ],
+                    "consumes": [
+                    "application/json"
+                    ],
+                    "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "New order request with optional simulation parameter",
+                        "required": true,
+                        "schema": {
+                        "$ref": "#/definitions/NewOrderResource"
+                        }
+                    }
+                    ],
+                    "responses": {
                     "201": {
                         "description": "Returns cart",
                         "schema": {
-                            "$ref": "#/definitions/Order"
+                        "$ref": "#/definitions/Order"
                         }
                     }
-                }
-            },
+                    }
+                },
+
             "get": {
                 "description": "Get orders",
                 "operationId": "/orders GET",
@@ -118,6 +132,22 @@
                                 ]
                             }
                         },
+                     "NewOrderResource": {
+                        "type": "object",
+                        "properties": {
+                            "customer": { "type": "string" },
+                            "address": { "type": "string" },
+                            "card": { "type": "string" },
+                            "items": { "type": "string" },
+                            "simulate": {
+                            "type": "string",
+                            "enum": ["latency", "cpu", "leak", "thread", "deadlock", "error"],
+                            "description": "Type of simulation to trigger performance issue"
+                            }
+                        },
+                        "required": ["customer", "address", "card", "items"]
+                        },
+
                         "cards": {
                             "type": "array",
                             "items": {
