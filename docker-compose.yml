@@ -70,3 +70,4 @@ networks:
 
 volumes:
   mongo-data:
+  mon_volume:
