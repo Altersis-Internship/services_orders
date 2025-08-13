@@ -29,10 +29,14 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
+      - name: List target contents
+        run: ls -l target
+
       - name: Prepare JAR for Docker
         run: |
           mkdir -p docker/target
-          cp target/orders-*.jar docker/target/orders.jar
+          cp target/*.jar docker/target/orders.jar
+
       - name: Save build artifacts
         uses: actions/upload-artifact@v4
         with:
