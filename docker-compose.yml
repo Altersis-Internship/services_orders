@@ -12,6 +12,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - MONGO_URL=mongodb://orders-db:27017/data
+      - JAVA_OPTS=-javaagent:/jmx_prometheus_javaagent.jar=8080:/prometheus-jmx-config.yaml
       - orders.payment-uri=http://users-orders-mock:1080/payment
       - orders.shipping-uri=http://users-orders-mock:1080/shipping
     networks:
@@ -47,6 +48,7 @@ services:
     container_name: prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/alerts/:/etc/prometheus/alerts/:ro
     ports:
       - "9090:9090"
     networks:
@@ -63,6 +65,9 @@ services:
       - monitoring-net
     depends_on:
       - prometheus
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
 
 networks:
   monitoring-net:
@@ -70,4 +75,4 @@ networks:
 
 volumes:
   mongo-data:
-  mon_volume:
+  grafana-data:
